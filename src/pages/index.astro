@@ -2,19 +2,19 @@
 import Layout from '../layouts/Layout.astro';
 import Comment from '../components/Comment.astro';
 import CommentForm from '../components/CommentForm.astro';
-import { commentsModel } from '../utils/db';
+import { CommentModel } from '../models/comments';
 
 if (Astro.request.method === 'POST') {
   const data = await Astro.request.formData();
   const author = data.get('author');
   const content = data.get('content');
-  await commentsModel.create({
+  await CommentModel.create({
     author: author as string,
     content: content as string
   });
 }
 
-const comments = await commentsModel.getAll();
+const comments = await CommentModel.getAll();
 ---
 
 <Layout title="Comments">
