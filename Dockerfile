@@ -34,11 +34,16 @@ RUN npm run build
 FROM base AS runtime
 COPY --from=prod-deps /app/node_modules ./node_modules
 COPY --from=build /app/dist ./dist
+
+# Move the knexfile and db folder to the runtime image
 COPY --from=build /app/knexfile.mjs knexfile.mjs
 COPY --from=build /app/db db
+
+# Move the run script and litestream config to the runtime image
 COPY --from=build /app/scripts/run.sh run.sh
 COPY --from=build /app/litestream.yml /etc/litestream.yml
 
+# Create the data directory for the database
 RUN mkdir -p /data
 
 ENV HOST=0.0.0.0

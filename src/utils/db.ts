@@ -3,9 +3,7 @@ import knexConfig from '../../knexfile.mjs';
 import { CommentModel } from '../models/comment.ts';
 
 const knex = Knex(
-  import.meta.env.MODE === 'production'
-    ? knexConfig.production
-    : knexConfig.development
+  import.meta.env.PROD ? knexConfig.production : knexConfig.development
 );
 
 // Comment Model instance
