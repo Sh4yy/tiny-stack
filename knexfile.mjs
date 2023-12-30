@@ -17,7 +17,7 @@ const config = {
   production: {
     client: "sqlite3",
     connection: {
-      filename: "./db/prod.sqlite3"
+      filename: "/data/prod.sqlite3"
     },
     migrations: {
       directory: "./db/migrations",

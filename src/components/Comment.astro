@@ -1,0 +1,16 @@
+---
+import { type Comment } from '../models/comment';
+interface Props {
+  comment: Comment;
+}
+const { comment } = Astro.props;
+---
+
+<li class="mb-4">
+  <blockquote class="p-4 bg-gray-100 rounded border-l-4 border-gray-300">
+    <p class="text-gray-800">{comment.content}</p>
+    <footer class="mt-2">
+      — <cite class="font-medium">{comment.author}</cite>
+    </footer>
+  </blockquote>
+</li>

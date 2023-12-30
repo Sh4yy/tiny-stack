@@ -15,6 +15,9 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
+# binaries
+litestream
+
 # environment variables
 .env
 .env.production
