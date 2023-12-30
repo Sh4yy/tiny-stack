@@ -2,26 +2,27 @@
 import Layout from '../layouts/Layout.astro';
 import Comment from '../components/Comment.astro';
 import CommentForm from '../components/CommentForm.astro';
-import { CommentModel } from '../models/comments';
+import { db } from '../utils/db';
+import { comments } from '../models/schema';
 
 if (Astro.request.method === 'POST') {
   const data = await Astro.request.formData();
   const author = data.get('author');
   const content = data.get('content');
-  await CommentModel.create({
+  await db.insert(comments).values({
     author: author as string,
     content: content as string
   });
 }
 
-const comments = await CommentModel.getAll();
+const commentResult = await db.query.comments.findMany();
 ---
 
 <Layout title="Comments">
   <main class="my-8 mx-auto max-w-2xl px-4">
     <h1 class="text-2xl font-bold text-gray-900 mb-6">Comments</h1>
     <ul class="list-none space-y-4">
-      {comments.map((comment) => <Comment comment={comment} />)}
+      {commentResult.map((comment) => <Comment comment={comment} />)}
     </ul>
     <CommentForm />
   </main>
