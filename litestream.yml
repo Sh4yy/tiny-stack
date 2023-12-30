@@ -1,5 +1,5 @@
 dbs:
-  - path: /data/prod.sqlite3
+  - path: /data/db.sqlite3
     replicas:
       - type: s3
         endpoint: ${REPLICA_URL}

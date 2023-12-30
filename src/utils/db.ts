@@ -1,10 +1,10 @@
-import Knex from 'knex';
-import knexConfig from '../../knexfile.mjs';
-import { CommentModel } from '../models/comment.ts';
+import { drizzle } from 'drizzle-orm/better-sqlite3';
+import Database from 'better-sqlite3';
+import { migrate } from 'drizzle-orm/better-sqlite3/migrator';
 
-const knex = Knex(
-  import.meta.env.PROD ? knexConfig.production : knexConfig.development
+const sqlite = new Database(
+  import.meta.env.PROD ? '/data/db.sqlite3' : './db.sqlite3'
 );
+export const db = drizzle(sqlite);
 
-// Comment Model instance
-export const commentsModel = new CommentModel(knex);
+migrate(db, { migrationsFolder: './drizzle' });
