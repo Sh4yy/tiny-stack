@@ -15,15 +15,16 @@ if (Astro.request.method === 'POST') {
   });
 }
 
-const commentResult = await db.query.comments.findMany();
+const cms = await db.query.comments.findMany();
 ---
 
 <Layout title="Comments">
   <main class="my-8 mx-auto max-w-2xl px-4">
     <h1 class="text-2xl font-bold text-gray-900 mb-6">Comments</h1>
     <ul class="list-none space-y-4">
-      {commentResult.map((comment) => <Comment comment={comment} />)}
+      {cms.map((comment) => <Comment comment={comment} />)}
     </ul>
+    <!--  Add the comment form -->
     <CommentForm />
   </main>
 </Layout>

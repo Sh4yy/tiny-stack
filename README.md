@@ -26,6 +26,7 @@ docker run \
   -e REPLICA_URL \
   -e LITESTREAM_ACCESS_KEY_ID \
   -e LITESTREAM_SECRET_ACCESS_KEY \
+  -v $(pwd)/data:/data \
   tiny-stack
 ```
 
