@@ -1,8 +1,14 @@
 # Tiny Stack
 
-A simple and tiny stack for building web applications using: Astro, SQLite, and Litestream.
+![thumbnail](https://github.com/Sh4yy/tiny-stack/assets/23535123/d33b50cd-ca17-4a39-9154-237442fc6c8a)
 
-## Getting Started
+A simple and tiny stack for building web applications using [Astro](https://astro.build), [SQLite](https://www.sqlite.org/index.html), and [Litestream](https://litestream.io).
+
+## Tutorial
+
+[Here](https://logsnag.com/blog/the-tiny-stack) is a thorough tutorial on the Tiny Stack.
+
+## Quick Start
 
 1. Build the Docker image
 
