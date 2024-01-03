@@ -1,5 +1,11 @@
 ---
+import { SignOut } from 'auth-astro/components';
 
+interface Props {
+  defaultName: string | undefined | null;
+}
+
+const { defaultName } = Astro.props;
 ---
 
 <form class="mt-8" method="post">
@@ -13,6 +19,7 @@
       name="author"
       class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
       placeholder="Your name"
+      value={defaultName}
     />
   </div>
 
@@ -35,5 +42,12 @@
     >
       Submit
     </button>
+
+    <SignOut
+      class="hover:bg-gray-100 text-gray-500 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+      type="button"
+    >
+      Sign Out
+    </SignOut>
   </div>
 </form>
