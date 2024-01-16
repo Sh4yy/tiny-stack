@@ -1,24 +1,21 @@
-# Build stage for Litestream
-FROM golang:alpine AS litestream
+FROM golang:alpine3.18 as litestream
 
-# Install build dependencies
-RUN apk add --no-cache git build-base
+WORKDIR /usr/src/
 
-# Set the working directory outside of GOPATH to enable the Go modules feature
-WORKDIR /src
+RUN apk add --no-cache git make musl-dev gcc
 
-# Clone the Litestream repository
-RUN git clone https://github.com/benbjohnson/litestream.git /src/litestream
+# build litestream
+RUN git clone https://github.com/benbjohnson/litestream.git litestream
+RUN cd litestream ; go install ./cmd/litestream
 
-# Build Litestream
-RUN cd /src/litestream && \
-    GOOS=linux GOARCH=arm64 go build -o /litestream ./cmd/litestream
+RUN cp $GOPATH/bin/litestream /usr/src/litestream
 
 FROM node:lts-alpine AS base
 WORKDIR /app
 
-# Copy the Litestream binary from the build stage
-COPY --from=litestream /litestream /usr/local/bin/litestream
+# Install litestream
+COPY --from=litestream /usr/src/litestream /usr/local/bin/litestream
+RUN chmod +x /usr/local/bin/litestream
 
 COPY package.json package-lock.json ./
 
