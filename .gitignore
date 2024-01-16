@@ -22,6 +22,9 @@ litestream
 .env
 .env.production
 
+# data
+data/
+
 # macOS-specific files
 .DS_Store
 

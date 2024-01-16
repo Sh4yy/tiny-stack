@@ -18,6 +18,9 @@ pnpm-debug.log*
 # binaries
 litestream
 
+# data
+data/
+
 # environment variables
 .env
 .env.production

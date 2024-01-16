@@ -1,23 +1,24 @@
-FROM node:lts AS base
+# Build stage for Litestream
+FROM golang:alpine AS litestream
+
+# Install build dependencies
+RUN apk add --no-cache git build-base
+
+# Set the working directory outside of GOPATH to enable the Go modules feature
+WORKDIR /src
+
+# Clone the Litestream repository
+RUN git clone https://github.com/benbjohnson/litestream.git /src/litestream
+
+# Build Litestream
+RUN cd /src/litestream && \
+    GOOS=linux GOARCH=arm64 go build -o /litestream ./cmd/litestream
+
+FROM node:alpine AS base
 WORKDIR /app
 
-# Install Litestream
-ENV LITESTREAM_VERSION="0.3.13"
-ARG TARGETARCH
-
-RUN case "${TARGETARCH}" in \
-    'amd64') \
-      ARCH='amd64';; \
-    'arm64') \
-      ARCH='arm64';; \
-    'arm') \
-      ARCH='armv7';; \
-    *) \
-      echo "Unsupported architecture: ${TARGETARCH}"; exit 1 ;; \
-    esac && \
-    wget https://github.com/benbjohnson/litestream/releases/download/v${LITESTREAM_VERSION}/litestream-v${LITESTREAM_VERSION}-linux-${ARCH}.deb \
-    && dpkg -i litestream-v${LITESTREAM_VERSION}-linux-${ARCH}.deb \
-    && rm litestream-v${LITESTREAM_VERSION}-linux-${ARCH}.deb
+# Copy the Litestream binary from the build stage
+COPY --from=litestream /litestream /usr/local/bin/litestream
 
 COPY package.json package-lock.json ./
 
