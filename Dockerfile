@@ -14,7 +14,7 @@ RUN git clone https://github.com/benbjohnson/litestream.git /src/litestream
 RUN cd /src/litestream && \
     GOOS=linux GOARCH=arm64 go build -o /litestream ./cmd/litestream
 
-FROM node:alpine AS base
+FROM node:lts-alpine AS base
 WORKDIR /app
 
 # Copy the Litestream binary from the build stage
