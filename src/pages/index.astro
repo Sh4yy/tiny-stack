@@ -24,7 +24,6 @@ const cms = await db.query.comments.findMany();
     <ul class="list-none space-y-4">
       {cms.map((comment) => <Comment comment={comment} />)}
     </ul>
-    <!--  Add the comment form -->
     <CommentForm />
   </main>
 </Layout>
