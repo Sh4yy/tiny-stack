@@ -1,13 +1,3 @@
-FROM golang:alpine3.18 as litestream
-
-WORKDIR /usr/src/
-
-RUN apk add --no-cache git make musl-dev gcc
-
-# build litestream
-RUN git clone https://github.com/benbjohnson/litestream.git litestream
-RUN cd litestream && go build -o /litestream ./cmd/litestream
-
 FROM node:lts-alpine AS base
 WORKDIR /app
 
@@ -27,8 +17,10 @@ COPY --from=build /app/dist ./dist
 # Move the drizzle directory to the runtime image
 COPY --from=build /app/drizzle ./drizzle
 
-# Move the litestream binary to the runtime image
-COPY --from=litestream /litestream /usr/local/bin/litestream
+# Move the litestream binary to the runtime image from the litestream image
+# You can use a specific version of litestream by changing the tag
+# COPY --from=litestream/litestream:0.3.13 /usr/local/bin/litestream /usr/local/bin/litestream
+COPY --from=litestream/litestream:latest /usr/local/bin/litestream /usr/local/bin/litestream
 
 # Move the run script and litestream config to the runtime image
 COPY --from=build /app/scripts/run.sh run.sh
