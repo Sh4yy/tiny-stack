@@ -27,7 +27,7 @@ source .env
 OR export individual variables:
 
 ```bash
-export REPLICA_URL=https://<bucket_id>.r2.cloudflarestorage.com
+export REPLICA_URL=https://<account_id>.r2.cloudflarestorage.com
 export LITESTREAM_ACCESS_KEY_ID=access_key_id
 export LITESTREAM_SECRET_ACCESS_KEY=secret_access_key
 ```
