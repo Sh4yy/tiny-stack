@@ -18,6 +18,14 @@ docker build -t tiny-stack .
 
 2. Set environment variables
 
+Copy/paste the contents of `.env.example` into a new `.env` file and fill in the values, then run:
+
+```bash
+source .env
+```
+
+OR export individual variables:
+
 ```bash
 export REPLICA_URL=https://<bucket_id>.r2.cloudflarestorage.com
 export LITESTREAM_ACCESS_KEY_ID=access_key_id
