@@ -44,4 +44,10 @@ docker run \
   tiny-stack
 ```
 
+The same command as a single line in case slashes are causing issues:
+
+```bash
+docker run -p 4321:4321 -e REPLICA_URL -e LITESTREAM_ACCESS_KEY_ID -e LITESTREAM_SECRET_ACCESS_KEY -v $(pwd)/data:/data tiny-stack
+```
+
 4. Head to http://localhost:4321
