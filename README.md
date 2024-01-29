@@ -18,8 +18,16 @@ docker build -t tiny-stack .
 
 2. Set environment variables
 
+Copy/paste the contents of `.env.example` into a new `.env` file and fill in the values, then run:
+
 ```bash
-export REPLICA_URL=https://<bucket_id>.r2.cloudflarestorage.com
+source .env
+```
+
+OR export individual variables:
+
+```bash
+export REPLICA_URL=https://<account_id>.r2.cloudflarestorage.com
 export LITESTREAM_ACCESS_KEY_ID=access_key_id
 export LITESTREAM_SECRET_ACCESS_KEY=secret_access_key
 ```
@@ -34,6 +42,12 @@ docker run \
   -e LITESTREAM_SECRET_ACCESS_KEY \
   -v $(pwd)/data:/data \
   tiny-stack
+```
+
+The same command as a single line in case slashes are causing issues:
+
+```bash
+docker run -p 4321:4321 -e REPLICA_URL -e LITESTREAM_ACCESS_KEY_ID -e LITESTREAM_SECRET_ACCESS_KEY -v $(pwd)/data:/data tiny-stack
 ```
 
 4. Head to http://localhost:4321
