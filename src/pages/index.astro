@@ -1,9 +1,14 @@
 ---
+import { getSession } from 'auth-astro/server';
+
 import Layout from '../layouts/Layout.astro';
 import Comment from '../components/Comment.astro';
 import CommentForm from '../components/CommentForm.astro';
 import { db } from '../utils/db';
 import { comments } from '../models/schema';
+
+const session = await getSession(Astro.request);
+if (!session) return Astro.redirect('/login');
 
 if (Astro.request.method === 'POST') {
   const data = await Astro.request.formData();
@@ -24,6 +29,6 @@ const cms = await db.query.comments.findMany();
     <ul class="list-none space-y-4">
       {cms.map((comment) => <Comment comment={comment} />)}
     </ul>
-    <CommentForm />
+    <CommentForm defaultName={session.user?.name} />
   </main>
 </Layout>

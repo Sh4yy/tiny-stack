@@ -1,0 +1,23 @@
+---
+import { getSession } from 'auth-astro/server';
+import { SignIn } from 'auth-astro/components';
+
+import Layout from '../layouts/Layout.astro';
+
+const session = await getSession(Astro.request);
+if (session) return Astro.redirect('/');
+---
+
+<Layout title="Login">
+  <main class="my-8 mx-auto max-w-2xl px-4">
+    <h1 class="text-2xl font-bold text-gray-900 mb-6">Login</h1>
+
+    <SignIn
+      class="hover:bg-gray-100 text-gray-500 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+      type="button"
+      provider="github"
+    >
+      Sign in with GitHub
+    </SignIn>
+  </main>
+</Layout>
