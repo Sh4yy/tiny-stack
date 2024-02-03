@@ -3,4 +3,4 @@ dbs:
     replicas:
       - type: s3
         endpoint: ${REPLICA_URL}
-        bucket: sqlite
+        bucket: ${REPLICA_BUCKET_NAME}
